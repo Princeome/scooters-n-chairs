@@ -38,6 +38,7 @@ export class SqliteRepository implements Repository {
     "product.max_speed",
     "product.wheels",
     "product.published_at_unix_ms",
+    "product.sales_rank",
     "product.description_html",
     "product.model",
     "product.product_type",
@@ -82,7 +83,6 @@ export class SqliteRepository implements Repository {
     );
     return rows.map((row) => SqliteRepository.rowToProduct(row));
   }
-
 
   async getRelatedProducts(
     category: ProductCategory,
@@ -473,29 +473,29 @@ export class SqliteRepository implements Repository {
     }
 
     this.run(
-      "INSERT INTO product VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)",
-      product.id,
-      product.title,
-      product.vendor.vendor,
-      product.price.usdAmount,
-      product.listPrice?.usdAmount,
-      JSON.stringify(product.options),
-      JSON.stringify(product.variants),
-      JSON.stringify(product.images),
-      product.specifications.groundClearance,
-      product.specifications.weightCapacity,
-      product.specifications.turningRadius,
-      product.specifications.range,
-      product.specifications.maxSpeed,
-      product.specifications.wheels,
-      product.publishedAt.unixMilliseconds,
-      salesRank,
-      product.descriptionHtml,
-      product.sku,
-      product.model,
-      product.product_type,
-      product.model_image ?? null,
-      product.vendor_filter,
+      // "INSERT INTO product VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      `INSERT INTO product 
+        (id, sku, title, vendor,
+          description_html, price,
+          list_price, options,
+          variants, images, ground_clearance,
+          weight_capacity, turning_radius,
+          range, max_speed, wheels,
+          published_at_unix_ms,
+          model, product_type,
+          model_image, vendor_filter,
+          sales_rank)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      product.id, product.sku, product.title, product.vendor.vendor,
+      product.descriptionHtml, product.price.usdAmount,
+      product.listPrice?.usdAmount, JSON.stringify(product.options),
+      JSON.stringify(product.variants), JSON.stringify(product.images),
+      product.specifications.groundClearance, product.specifications.weightCapacity,
+      product.specifications.turningRadius, product.specifications.range,
+      product.specifications.maxSpeed, product.specifications.wheels,
+      product.publishedAt.unixMilliseconds, product.model,
+      product.product_type, product.model_image ?? null,
+      product.vendor_filter, salesRank,
     );
 
     for (const color of product.colors) {
@@ -625,8 +625,10 @@ export class SqliteRepository implements Repository {
       this.run(`
         CREATE TABLE IF NOT EXISTS product (
           id TEXT PRIMARY KEY NOT NULL,
+          sku TEXT NOT NULL,
           title TEXT NOT NULL,
           vendor TEXT NOT NULL,
+          description_html TEXT,
           price NUMERIC NOT NULL,
           list_price NUMERIC,
           options TEXT NOT NULL,
@@ -639,8 +641,11 @@ export class SqliteRepository implements Repository {
           max_speed NUMERIC,
           wheels NUMERIC,
           published_at_unix_ms INTEGER NOT NULL,
-          sales_rank INTEGER UNIQUE NOT NULL,
-          description_html TEXT
+          model TEXT NOT NULL,
+          product_type TEXT,
+          model_image TEXT,
+          vendor_filter TEXT NOT NULL,
+          sales_rank INTEGER UNIQUE NOT NULL
         ) WITHOUT ROWID
       `);
       this.run(

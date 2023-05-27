@@ -17,6 +17,7 @@ import {
 import { unwrap } from "../util";
 import _ from "lodash";
 import { GraphqlClient } from "../graphqlClient";
+import { logger } from "../logger";
 
 export class ShopifyDataSource {
   private static readonly pageSize = 100;
@@ -58,31 +59,17 @@ export class ShopifyDataSource {
           });
 
           const product_type = node.metafields.edges.find(obj => {
-
-           
-
             return obj.node.key === 'product_type';
           });
 
           const vendor_filter = node.metafields.edges.find(obj => {
-
-           
-
             return obj.node.key === 'brand';
           });
 
 
           const model_image = node.metafields.edges.find(obj => {
-
-           
-
             return obj.node.key === 'model_image';
           });
-
-          
-
-
-            
           
           const variants = node.variants.edges;
           if (variants.length === 0) {
@@ -94,9 +81,6 @@ export class ShopifyDataSource {
           const firstVariant = variants[0].node;
 
           return {
-
-            
-            
             id: node.handle,
             sku:node.id,
             title: node.title,
