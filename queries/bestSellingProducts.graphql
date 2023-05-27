@@ -1,0 +1,13 @@
+query BestSellingProducts($cursor: String) {
+  products(first: 250, after: $cursor, sortKey: BEST_SELLING) {
+    edges {
+      cursor
+      node {
+        handle
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
