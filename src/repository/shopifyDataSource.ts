@@ -6,7 +6,7 @@ import {
   ProductSpecifications,
   SalesRanks,
   UsdPrice,
-} from "../../core";
+} from "../core";
 import {
   BestSellingProductsQuery,
   BestSellingProductsQueryVariables,

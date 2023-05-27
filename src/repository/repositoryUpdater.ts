@@ -1,5 +1,5 @@
-import { RepositoryUpdater as RepositoryUpdaterInterface } from "../../core";
-import { logger } from "../../logger";
+import { RepositoryUpdater as RepositoryUpdaterInterface } from "../core";
+import { logger } from "../logger";
 import { ShopifyDataSource } from "./shopifyDataSource";
 import { SqliteRepository } from "./sqliteRepository";
 

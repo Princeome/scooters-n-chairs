@@ -14,11 +14,11 @@ import {
   Repository,
   SalesRanks,
   UsdPrice,
-} from "../../core";
+} from "../core";
 import { Database } from "sqlite3";
 import { stat } from "fs/promises";
 import _ from "lodash";
-import { delay } from "../../util";
+import { delay } from "../util";
 
 export class SqliteRepository implements Repository {
   private static readonly allProductColumns = [

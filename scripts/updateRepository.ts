@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
-import { repositoryUpdater } from "../data/data";
+import { repositoryUpdater } from "../src/data";
 import fetch from "node-fetch";
 
 async function main() {

@@ -1,8 +1,8 @@
 import { createDeployment } from "@vercel/client";
 import { readFile } from "fs/promises";
 import path from "path";
-import { logger } from "../data/logger";
-import { delay } from "../data/util";
+import { logger } from "../src/logger";
+import { delay } from "../src/util";
 
 const fifteenMinutesAsMs = 15 * 60 * 1000;
 
