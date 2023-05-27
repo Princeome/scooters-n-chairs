@@ -13,10 +13,10 @@ import {
   MoneyV2,
   ProductsQuery,
   ProductsQueryVariables,
-} from "../../generated/graphql";
-import { unwrap } from "../../util";
+} from "../generated/graphql";
+import { unwrap } from "../util";
 import _ from "lodash";
-import { GraphqlClient } from "../../graphqlClient";
+import { GraphqlClient } from "../graphqlClient";
 
 export class ShopifyDataSource {
   private static readonly pageSize = 100;
