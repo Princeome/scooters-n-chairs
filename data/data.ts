@@ -1,6 +1,6 @@
-import { Repository } from "../core";
-import { logger } from "../logger";
-import { RepositoryUpdater as RepositoryUpdaterInterface } from "../core";
+import { Repository } from "./core";
+import { logger } from "./logger";
+import { RepositoryUpdater as RepositoryUpdaterInterface } from "./core";
 import { RepositoryUpdater } from "./repository/repositoryUpdater";
 import { ShopifyDataSource } from "./repository/shopifyDataSource";
 import { SqliteRepository } from "./repository/sqliteRepository";
