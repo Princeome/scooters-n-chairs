@@ -1,0 +1,12 @@
+mutation CreateCart($lines: [CartLineInput!]) {
+  cartCreate(input: { lines: $lines }) {
+    userErrors {
+      code
+      field
+      message
+    }
+    cart {
+      checkoutUrl
+    }
+  }
+}

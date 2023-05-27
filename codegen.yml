@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - https://scooters-n-chairs.myshopify.com/api/2021-10/graphql.json:
+      headers:
+        X-Shopify-Storefront-Access-Token: "c34710cc7e554a7bff86bafe489b6408"
+
+documents:
+  - "queries/*.graphql"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
