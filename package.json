@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev | pino-pretty",
+    "build": "npm run update-repository && next build",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "update-repository": "ts-node --project ./node.tsconfig.json scripts/updateRepository.ts",
+    "periodic-updater": "ts-node --project ./node.tsconfig.json scripts/periodicUpdater.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
